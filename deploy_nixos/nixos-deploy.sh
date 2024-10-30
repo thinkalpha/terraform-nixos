@@ -21,7 +21,7 @@ sshOpts=(
   # interactive authentication is not possible
   -o "BatchMode=yes"
   # verbose output for easier debugging
-  -v
+  #-v
 )
 
 ###  Argument parsing ###
