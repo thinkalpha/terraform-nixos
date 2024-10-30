@@ -106,7 +106,7 @@ if [[ "${buildOnTarget:-false}" == true ]]; then
   # Build remotely
   log "building on target"
   set -x
-  targetHostCmd "nix-store" "--realize" "$drvPath" "${buildArgs[@]}"
+  ssh "${sshOpts[@]}" "$targetHost" "nix-store" "--realize" "$drvPath" "${buildArgs[@]}"
 
 else
 
@@ -129,5 +129,5 @@ ssh "${sshOpts[@]}" "$targetHost" "$outPath/bin/switch-to-configuration" "$actio
 log "collecting old nix derivations"
 # Deliberately not quoting $deleteOlderThan so the user can configure something like "1 2 3" 
 # to keep generations with those numbers
-targetHostCmd "nix-env" "--profile" "$profile" "--delete-generations" $deleteOlderThan
-targetHostCmd "nix-store" "--gc"
+ssh "${sshOpts[@]}" "$targetHost" "nix-env" "--profile" "$profile" "--delete-generations" $deleteOlderThan
+ssh "${sshOpts[@]}" "$targetHost" "nix-store" "--gc"
