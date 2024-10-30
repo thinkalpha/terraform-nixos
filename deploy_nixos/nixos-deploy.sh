@@ -21,7 +21,7 @@ sshOpts=(
   # interactive authentication is not possible
   -o "BatchMode=yes"
   # verbose output for easier debugging
-  #-v
+  -v
 )
 
 ###  Argument parsing ###
@@ -95,7 +95,7 @@ setupControlPath() {
 
 ### Main ###
 
-# setupControlPath
+setupControlPath
 
 if [[ "${buildOnTarget:-false}" == true ]]; then
 
@@ -122,8 +122,8 @@ fi
 
 # Activate
 log "activating configuration"
-targetHostCmd nix-env --profile "$profile" --set "$outPath"
-targetHostCmd "$outPath/bin/switch-to-configuration" "$action"
+ssh "${sshOpts[@]}" "$targetHost" nix-env --profile "$profile" --set "$outPath"
+ssh "${sshOpts[@]}" "$targetHost" "$outPath/bin/switch-to-configuration" "$action"
 
 # Cleanup previous generations
 log "collecting old nix derivations"
