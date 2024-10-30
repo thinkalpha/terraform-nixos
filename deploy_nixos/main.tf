@@ -156,7 +156,7 @@ resource "null_resource" "deploy_nixos" {
     host        = var.target_host
     port        = var.target_port
     user        = var.target_user
-    agent       = local.ssh_agent
+#     agent       = local.ssh_agent
     timeout     = "100s"
     private_key = local.ssh_private_key == "-" ? "" : local.ssh_private_key
   }
