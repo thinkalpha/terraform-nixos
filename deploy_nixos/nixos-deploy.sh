@@ -95,7 +95,7 @@ setupControlPath() {
 
 ### Main ###
 
-setupControlPath
+# setupControlPath
 
 if [[ "${buildOnTarget:-false}" == true ]]; then
 
